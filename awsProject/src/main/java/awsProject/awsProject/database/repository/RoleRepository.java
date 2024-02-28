@@ -1,6 +1,7 @@
 package awsProject.awsProject.database.repository;
 
-import org.springframework.context.annotation.Role;
+
+import awsProject.awsProject.database.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

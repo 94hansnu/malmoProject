@@ -1,6 +1,7 @@
 package awsProject.awsProject.database.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Slave extends User {
     private String nationality;
-    private String name;
     private int age;
     private boolean efficient;
     private boolean obedient;
+
+    @ManyToOne
+    private Boss boss;
 }

@@ -11,12 +11,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED) // Används för att implementera arvsmappning
-public abstract class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
     @Column(unique = true)
     @NonNull
     private String username;
@@ -34,6 +35,9 @@ public abstract class User extends BaseEntity implements UserDetails {
     private Set<Role> authorities;
 
     private boolean active;
+
+    public User(String admin, String admin1, Set<Role> roleSet) {
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

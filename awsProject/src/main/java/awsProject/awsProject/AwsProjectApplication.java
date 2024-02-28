@@ -1,5 +1,7 @@
 package awsProject.awsProject;
 
+
+import awsProject.awsProject.database.entity.Role;
 import awsProject.awsProject.database.entity.User;
 import awsProject.awsProject.database.repository.RoleRepository;
 import awsProject.awsProject.database.repository.UserRepository;
@@ -7,7 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Role;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
@@ -20,6 +22,36 @@ public class AwsProjectApplication {
 		SpringApplication.run(AwsProjectApplication.class, args);
 	}
 
+
+	@Bean
+	CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder encoder) {
+		return args -> {
+			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
+
+			Role adminRole = new Role("ADMIN");
+			Role userRole = new Role("USER");
+
+
+			roleRepository.save(adminRole);
+			roleRepository.save(userRole);
+
+			Set<Role> roleSet = new HashSet<>();
+			roleSet.add(adminRole);
+
+			User adminUser = new User("admin", encoder.encode("admin"), roleSet);
+			userRepository.save(adminUser);
+		};
+	}
+
+
+
+
+
+
+
+
+
+	/*
 	@Bean
 	CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder encoder) {
 
@@ -36,6 +68,6 @@ public class AwsProjectApplication {
 			userRepository.save(adminUser);
 		};
 
-	}
+	}*/
 
 }
