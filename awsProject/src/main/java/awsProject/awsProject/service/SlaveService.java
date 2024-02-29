@@ -67,13 +67,14 @@ public class SlaveService {
         }
     }
 
-    public Optional<Slave> updateSlave(Long id, Slave slaveDetails) {
+   /* public Optional<Slave> updateSlave(Long id, Slave slaveDetails) {
         try {
             return getSlaveById(id).map(slave -> {
                 slave.setNationality(slaveDetails.getNationality());
                 slave.setAge(slaveDetails.getAge());
                 slave.setEfficient(slaveDetails.isEfficient());
                 slave.setObedient(slaveDetails.isObedient());
+
                 Slave updatedSlave = slaveRepository.save(slave);
                 System.out.println("Slave updated: " + updatedSlave);
                 return updatedSlave;
@@ -82,7 +83,23 @@ public class SlaveService {
             System.out.println("Failed to update slave: " + e.getMessage());
             return Optional.empty();
         }
-    }
+    }*/
+   public Slave updateSlaveBoss(Long slaveId, Long boosId) {
+       try {
+           Optional<Slave> slaveOptional = slaveRepository.findById(slaveId);
+
+           if (slaveOptional.isPresent()) {
+               Optional<Boss> bossOptional = bossRepository.findById(boosId);
+               Slave updateSlave = slaveOptional.get();
+               updateSlave.setBoss(bossOptional.get());
+               return slaveRepository.save(updateSlave);
+           }
+       }
+       catch (Exception e) {
+           System.out.println("Failed to update slave: " + e.getMessage());
+
+       }return null;
+   }
 
     public void deleteSlave(Long id) {
         try {

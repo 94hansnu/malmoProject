@@ -57,11 +57,14 @@ public class SlaveController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Slave> updateSlave(@PathVariable Long id, @RequestBody Slave slaveDetails) {
-        Optional<Slave> updatedSlave = slaveService.updateSlave(id, slaveDetails);
-        return updatedSlave.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Slave> updateSlave(@PathVariable Long id, @RequestBody Long bossId) {
+        Slave updatedSlave = slaveService.updateSlaveBoss(id, bossId);
+
+        if (updatedSlave !=  null){
+            return ResponseEntity.ok().body(updatedSlave);
+        } return ResponseEntity.badRequest().body(updatedSlave);
     }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

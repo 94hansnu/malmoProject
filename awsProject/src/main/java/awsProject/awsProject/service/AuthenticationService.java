@@ -57,7 +57,7 @@ public class AuthenticationService {
             return new LoginResponse(userRepository.findByUsername(username).get(), token);
 
         } catch(AuthenticationException e){
-            return new LoginResponse(null, "");
+            return new LoginResponse(null, e.getMessage());
         }
     }
 
