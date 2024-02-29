@@ -23,7 +23,25 @@ public class AwsProjectApplication {
 	}
 
 
+
 	@Bean
+	CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder encoder) {
+
+		return args -> {
+			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
+
+			Role admin = roleRepository.save(new Role("ADMIN"));
+			roleRepository.save(new Role("USER"));
+
+			Set<Role> roleSet = new HashSet<>();
+			roleSet.add(admin);
+
+			User adminUser = new User("admin", encoder.encode("admin"), roleSet);
+			userRepository.save(adminUser);
+		};
+
+	}
+	/*@Bean
 	CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder encoder) {
 		return args -> {
 			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
@@ -40,7 +58,7 @@ public class AwsProjectApplication {
 
 			User adminUser = new User("admin", encoder.encode("admin"), roleSet);
 			userRepository.save(adminUser);
-		};
+		};*/
 	}
 
 
@@ -70,4 +88,4 @@ public class AwsProjectApplication {
 
 	}*/
 
-}
+

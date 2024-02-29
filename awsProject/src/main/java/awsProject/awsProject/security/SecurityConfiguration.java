@@ -55,12 +55,13 @@ public class SecurityConfiguration {
 
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/auth/**", "/articles").permitAll();
-                    auth.requestMatchers("/shoppingcart/**").hasAnyRole("USER", "ADMIN");
-                    auth.requestMatchers("/history/**", "/articles/**").hasRole("ADMIN");
-                    auth.requestMatchers("/history/user").hasAnyRole("USER", "ADMIN");
-                    auth.anyRequest().authenticated();
+                    auth.requestMatchers("/auth/**").permitAll();
+                    auth.requestMatchers("/slaves").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers("/bosses").hasRole("ADMIN");
+                    //auth.requestMatchers("/history/user").hasAnyRole("USER", "ADMIN");
+                   // auth.anyRequest().authenticated();
                 });
+
 
         http.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
         http.sessionManagement(

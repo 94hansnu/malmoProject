@@ -34,10 +34,6 @@ public class User extends BaseEntity implements UserDetails {
     )
     private Set<Role> authorities;
 
-    private boolean active;
-
-    public User(String admin, String admin1, Set<Role> roleSet) {
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -66,6 +62,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return false;
     }
+
 }
