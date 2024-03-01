@@ -58,7 +58,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/slaves/**").hasAnyRole("USER", "ADMIN");
-                    auth.requestMatchers("/bosses").hasRole("ADMIN");
+                    auth.requestMatchers("/bosses/**").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT, "/slaves/**").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/slaves/**").hasRole("ADMIN");
                     //auth.requestMatchers("/history/user").hasAnyRole("USER", "ADMIN");
                    // auth.anyRequest().authenticated();
                 });

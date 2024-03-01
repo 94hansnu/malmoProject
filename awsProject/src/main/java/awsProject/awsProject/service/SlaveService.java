@@ -101,7 +101,9 @@ public class SlaveService {
        }return null;
    }
 
-    public void deleteSlave(Long id) {
+
+
+   /* public void deleteSlave(Long id) {
         try {
             getSlaveById(id).ifPresent(slave -> {
                 slaveRepository.delete(slave);
@@ -110,9 +112,35 @@ public class SlaveService {
         } catch (Exception e) {
             System.out.println("Failed to delete slave: " + e.getMessage());
         }
+    }*/
+
+    public void deleteSlave(Long id) {
+        Optional<Slave> slaveOptional = slaveRepository.findById(id);
+        slaveOptional.ifPresent(slave -> {
+            // Hämta referensen till bossen
+            Boss boss = slave.getBoss();
+            if (boss != null) {
+                // Ta bort slaven från bossens lista över slavar
+                boss.getSlaves().remove(slave);
+                // Spara den uppdaterade bossen
+                bossRepository.save(boss);
+            }
+            // Radera slaven
+            slaveRepository.delete(slave);
+        });
+
     }
 
+
 }
+
+
+
+
+
+
+
+
 
 /* public Optional<Slave> updateSlave(Long id, Slave slaveDetails) {
         try {

@@ -55,9 +55,10 @@ public class SlaveController {
         }
     }
 
-    @PutMapping("/{id}")
+
+    @PutMapping("/boss/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Slave> updateSlave(@PathVariable Long id, @RequestBody Long bossId) {
+    public ResponseEntity<Slave> updateSlaveBoss(@PathVariable Long id, @RequestBody Long bossId) {
         Slave updatedSlave = slaveService.updateSlaveBoss(id, bossId);
 
         if (updatedSlave !=  null){

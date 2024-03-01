@@ -1,6 +1,7 @@
 package awsProject.awsProject.service;
 
 import awsProject.awsProject.database.entity.Boss;
+import awsProject.awsProject.database.entity.Slave;
 import awsProject.awsProject.database.repository.BossRepository;
 import awsProject.awsProject.database.repository.SlaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class BossService {
         }
     }
 
-    public void deleteBoss(Long id) {
+    /*public void deleteBoss(Long id) {
         try {
             getBossById(id).ifPresent(boss -> {
                 bossRepository.delete(boss);
@@ -77,6 +78,22 @@ public class BossService {
         } catch (Exception e) {
             System.out.println("Failed to delete boss: " + e.getMessage());
         }
+    }*/
+
+    public void deleteBoss(Long id) {
+        Optional<Boss> bossOptional = bossRepository.findById(id);
+        bossOptional.ifPresent(boss -> {
+            // Hämta alla slavar som är kopplade till denna boss
+            List<Slave> slaves = boss.getSlaves();
+            // Ta bort bossens referenser från slavarna
+            for (Slave slave : slaves) {
+                slave.setBoss(null);
+            }
+            // Spara de ändrade slavarna
+            slaveRepository.saveAll(slaves);
+            // Radera bossen
+            bossRepository.delete(boss);
+        });
     }
 
 }
