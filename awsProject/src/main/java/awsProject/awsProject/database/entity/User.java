@@ -16,7 +16,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED) // Används för att implementera arvsmappning
 public class User extends BaseEntity implements UserDetails {
     @Column(unique = true)
     @NonNull

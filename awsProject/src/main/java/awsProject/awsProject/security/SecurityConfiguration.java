@@ -8,6 +8,7 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -49,7 +50,7 @@ public class SecurityConfiguration {
         return new ProviderManager(daoProvider);
     }
 
-    @Bean  // denna metod behöver justeras
+     @Bean  //gamla metoden
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
 
@@ -70,6 +71,28 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
+   /* @Bean  // denna metod behöver justeras
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http
+
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/auth/**").permitAll();
+                    auth.requestMatchers("/slaves/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.PUT, "/slaves/**").hasRole("ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/slaves/**").hasRole("ADMIN");
+                    auth.requestMatchers("/bosses/**").hasRole("ADMIN");
+
+                });
+
+        http.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
+        http.sessionManagement(
+                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+
+        return http.build();
+    }*/
     @Bean
     public JwtDecoder jwtDecoder(){
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();

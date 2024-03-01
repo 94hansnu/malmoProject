@@ -56,6 +56,22 @@ public class SlaveService {
         }
     }
 
+   /* public Slave saveSlave(Slave slave) {
+        try {
+            Long bossId = slave.getBoss().getId(); // Hämta chefens ID från den nya slaven
+            Optional<Boss> bossOptional = bossRepository.findById(bossId); // Hämta chefen från databasen
+            bossOptional.ifPresent(slave::setBoss); // Ange chefen för den nya slaven
+
+            Slave savedSlave = slaveRepository.save(slave);
+            System.out.println("Slave saved: " + savedSlave);
+            return savedSlave;
+        } catch (Exception e) {
+            System.out.println("Failed to save slave: " + e.getMessage());
+            return null;
+        }
+    }*/
+
+
     public Slave saveSlave(Slave slave) {
         try {
             Slave savedSlave = slaveRepository.save(slave);
@@ -67,23 +83,7 @@ public class SlaveService {
         }
     }
 
-   /* public Optional<Slave> updateSlave(Long id, Slave slaveDetails) {
-        try {
-            return getSlaveById(id).map(slave -> {
-                slave.setNationality(slaveDetails.getNationality());
-                slave.setAge(slaveDetails.getAge());
-                slave.setEfficient(slaveDetails.isEfficient());
-                slave.setObedient(slaveDetails.isObedient());
 
-                Slave updatedSlave = slaveRepository.save(slave);
-                System.out.println("Slave updated: " + updatedSlave);
-                return updatedSlave;
-            });
-        } catch (Exception e) {
-            System.out.println("Failed to update slave: " + e.getMessage());
-            return Optional.empty();
-        }
-    }*/
    public Slave updateSlaveBoss(Long slaveId, Long boosId) {
        try {
            Optional<Slave> slaveOptional = slaveRepository.findById(slaveId);
@@ -113,3 +113,21 @@ public class SlaveService {
     }
 
 }
+
+/* public Optional<Slave> updateSlave(Long id, Slave slaveDetails) {
+        try {
+            return getSlaveById(id).map(slave -> {
+                slave.setNationality(slaveDetails.getNationality());
+                slave.setAge(slaveDetails.getAge());
+                slave.setEfficient(slaveDetails.isEfficient());
+                slave.setObedient(slaveDetails.isObedient());
+
+                Slave updatedSlave = slaveRepository.save(slave);
+                System.out.println("Slave updated: " + updatedSlave);
+                return updatedSlave;
+            });
+        } catch (Exception e) {
+            System.out.println("Failed to update slave: " + e.getMessage());
+            return Optional.empty();
+        }
+    }*/
