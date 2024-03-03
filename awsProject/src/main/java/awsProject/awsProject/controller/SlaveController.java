@@ -66,6 +66,20 @@ public class SlaveController {
         } return ResponseEntity.badRequest().body(updatedSlave);
     }
 
+    // Todo:
+    // Testa att denna fungerar
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Slave> updateSlaveAttribut(
+            @PathVariable Long id, @RequestBody Slave slave) {
+        Slave updateSave = slaveService.getSlaveById(id).orElse(null);
+        if (updateSave != null) {
+            slave.setId(id);
+            slaveService.saveSlave(slave);
+            return ResponseEntity.status(201).body(slave);
+        }
+        return ResponseEntity.status(400).body(updateSave);
+    }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
