@@ -102,10 +102,7 @@ public class SlaveService {
             // Radera slaven
             slaveRepository.delete(slave);
         });
-
     }
-
-
 }
 
 
