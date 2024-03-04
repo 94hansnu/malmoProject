@@ -20,7 +20,7 @@ public class SlaveService {
     @Autowired
     private BossRepository bossRepository;
 
-    public List<Slave> getAllSlaves() {
+    public List<Slave> getAllSlaves() {//hej
         try {
             List<Slave> slaves = slaveRepository.findAll();
             System.out.println("All slaves retrieved: " + slaves.size());
