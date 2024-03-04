@@ -13,9 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Slave extends BaseEntity {
-    //@ManyToOne
-    //private User user;
-    //@JsonIgnore
+
     private String nationality;
     private int age;
     private boolean efficient;

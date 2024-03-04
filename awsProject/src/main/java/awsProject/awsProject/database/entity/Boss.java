@@ -16,8 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Boss extends BaseEntity {
-    //@ManyToOne
-    //private User user;
 
     private String title;
 

@@ -69,17 +69,6 @@ public class BossService {
         }
     }
 
-    /*public void deleteBoss(Long id) {
-        try {
-            getBossById(id).ifPresent(boss -> {
-                bossRepository.delete(boss);
-                System.out.println("Boss deleted with ID: " + id);
-            });
-        } catch (Exception e) {
-            System.out.println("Failed to delete boss: " + e.getMessage());
-        }
-    }*/
-
     public void deleteBoss(Long id) {
         Optional<Boss> bossOptional = bossRepository.findById(id);
         bossOptional.ifPresent(boss -> {

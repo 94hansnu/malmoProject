@@ -69,6 +69,7 @@ public class SlaveController {
     // Todo:
     // Testa att denna fungerar
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Slave> updateSlaveAttribut(
             @PathVariable Long id, @RequestBody Slave slave) {
         Slave updateSave = slaveService.getSlaveById(id).orElse(null);
