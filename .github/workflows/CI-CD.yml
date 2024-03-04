@@ -28,8 +28,7 @@ jobs:
     
     - name: Build and test Spring Boot application
       run: |
-        chmod +x mvnw
-        ./mvnw clean package -DskipTests=false
+        chmod +x mvnw./mvnw clean package -DskipTests=false
 
     
 
@@ -51,5 +50,4 @@ jobs:
   
     - name: Run all tests
       run: |
-        chmod +x mvnw
-        ./mvnw test
+        chmod +x mvnw./mvnw test
