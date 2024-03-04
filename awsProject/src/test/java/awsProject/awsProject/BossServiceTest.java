@@ -94,7 +94,7 @@ public class BossServiceTest {
         Boss updatedBoss = new Boss();
         updatedBoss.setTitle("NyBoss");
 
-        // Testa updateBoss-metoden
+        // Testa updateBoss-metod
         Optional<Boss> result = bossService.updateBoss(1L, updatedBoss);
 
         // Assert
